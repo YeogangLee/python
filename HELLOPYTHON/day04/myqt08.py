@@ -11,9 +11,15 @@ class WindowClass(QMainWindow, form_class):
         super().__init__() 
         self.setupUi(self)
         self.pb.clicked.connect(self.myclick)
+        self.le_mine.returnPressed.connect(self.myenter)
         
     def myclick(self):
+        self.doGame()
         
+    def myenter(self):
+        self.doGame()
+        
+    def doGame(self):
         rnd = random()
         
         if(rnd > 0.66):
@@ -30,6 +36,7 @@ class WindowClass(QMainWindow, form_class):
         elif(self.le_mine.text() == "보" and self.le_com.text() == "가위" or self.le_mine.text() == "가위" and self.le_com.text() == "바위" or self.le_mine.text() == "바위" and self.le_com.text() == "보"):
             self.le_result.setText("패배하셨습니다...")
         
+    
 if __name__ == "__main__": 
     app = QApplication(sys.argv) 
     myWindow = WindowClass() 
