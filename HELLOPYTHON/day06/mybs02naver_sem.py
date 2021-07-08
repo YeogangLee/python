@@ -1,4 +1,5 @@
 import urllib.request
+from bs4 import BeautifulSoup
 client_id = "9NUFIPVgF55nN4h1R5i9"
 client_secret = "hxzbrMYVAw"
 encText = urllib.parse.quote("주식")
@@ -14,6 +15,16 @@ rescode = response.getcode()
 
 if(rescode==200):
     response_body = response.read()
-    print(response_body.decode('utf-8'))
+    html = response_body.decode('utf-8')
+    soup = BeautifulSoup(html, 'xml')
+    items = soup.select("item")
+    for item in items:
+        print(item.title.text,end="\n")
+        print(item.originallink.text,end="\n")
+        print(item.link.text,end="\n")
+        print(item.description.text,end="\n")
+        print(item.pubDate.text,end="\n")
+        print()
+    
 else:
     print("Error Code:" + rescode)

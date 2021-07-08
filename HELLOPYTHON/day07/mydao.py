@@ -18,6 +18,20 @@ class DaoStock:
             
         return ret
     
+    def get_all_names(self):
+        ret = []
+        sql = f"""select c_name from stock group by c_name"""
+        
+        self.curs.execute(sql)
+        rows = self.curs.fetchall()
+        # print(rows) 
+        for row in rows:
+            ret.append(row[0])
+            
+        return ret
+        
+        
+    
     def retrieveAll(self):
         ret = []
         sql = f""" SELECT s_code, c_name from stock GROUP BY s_code, c_name"""
@@ -41,7 +55,8 @@ if __name__ == '__main__':
     ds = DaoStock()
     # list_prices = ds.get_prices("삼성전자")
     # print(list_prices)
-    list_retrieve = ds.retrieveAll()
-    print(list_retrieve)
-    
+    # list_retrieve = ds.retrieveAll()
+    # print(list_retrieve)
+    list_all_name = ds.get_all_names()
+    print(list_all_name)
     
