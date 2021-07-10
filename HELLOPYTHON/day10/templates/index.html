@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  	<meta charset="UTF-8">
+    <title>Flask app</title>
+  </head>
+  <body>
+<!--     <h1>Hello Flask!</h1> -->
+  	    good luck {{dan}}
+  	    <br>
+  	    arr 출력
+		<ol>
+			{% for item in arr%}
+			<li>{{item}}</li>
+			{% endfor %}
+		</ol>
+		<table border="1">
+			<tr>
+				<td>이름</td>
+				<td>전화번호</td>
+			</tr>
+			{% for item in arr2 %}
+			<tr>
+				<td>{{item.name}}</td>
+				<td>{{item.tel}}</td>
+			</tr>
+			{% endfor %}
+		</table>
+  </body>
+</html>
