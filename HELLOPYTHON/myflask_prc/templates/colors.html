@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+</head>
+<body>
+	date : {{date}}<br><br>
+	arr : {{arr}}<br>
+	arr for :
+	{% for item in arr %}
+		{{item}}
+	{% endfor %}
+	<br><br>
+	arr2 : {{arr2}}<br>
+	favorite : {{arr2[0].favorite}}<br>
+	sour : {{arr2[1].sour}}<br>
+	great : {{arr2[2].great}}<br>
+	colors : 
+	{% for color in arr2 %}
+		{{color.color}}
+	{% endfor %}
+	
+</body>
+</html>
