@@ -53,10 +53,10 @@ if __name__ == '__main__':
     # ds.get_prices("삼성전자")
     
     ds = DaoStock()
-    # list_prices = ds.get_prices("삼성전자")
-    # print(list_prices)
+    list_prices = ds.get_prices("삼성전자")
+    print(list_prices)
     # list_retrieve = ds.retrieveAll()
     # print(list_retrieve)
-    list_all_name = ds.get_all_names()
-    print(list_all_name)
+    # list_all_name = ds.get_all_names()
+    print(list_prices)
     

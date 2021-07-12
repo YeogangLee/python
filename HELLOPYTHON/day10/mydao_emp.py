@@ -10,10 +10,20 @@ class DaoEmp:
     def letsgo(self):
         return 'g2'
         
-    def insert(self):
-        return 1    
+    def insert(self,e_id,e_name,tel,address):
+        sql = f"""
+        insert into emp 
+            (e_name,tel,address,in_user_id,in_date,up_user_id,up_date) 
+        values 
+            ('{e_name}','{tel}','{address}','1',DATE_FORMAT(NOW(), '%Y%m%d.%H%m%s'),'1',DATE_FORMAT(NOW(), '%Y%m%d.%H%m%s'))
+        """
+        
+        self.curs.execute(sql)
+        self.conn.commit()
+        cnt = self.curs.rowcount
+        return cnt
     
-    
+        
     def selectlist(self):
         ret = []
         sql = """
