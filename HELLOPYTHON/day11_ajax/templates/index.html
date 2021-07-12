@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="/js/jquery-3.6.0.js"></script>
+<script type="text/javascript">
+	function fn_hello(){
+        var id = '1';
+        var password = '1';
+        var email = '1';
+
+        var postdata = {
+            'id':id, 'password':password, 'email':email
+        }
+        $.ajax({
+            type: 'POST',
+            url: 'ajax',
+            async: false, //이걸 다 다운받을 때까지 뒤를 실행시키지 않아요. 근데 사실상 이 ajax는 딱 1번만 돌아가, 완성본이 아니야.
+            			  //await()라는 펑션이 생겼어, 그거 말고도 다른 펑션들 있을 건데 그건 내수업시간부분 아니니까 알아서들 공부하시고
+            			  //아무튼 동기를 axios는 여러번 할 수 있어
+            data: JSON.stringify(postdata),
+            dataType : 'JSON',
+            contentType: "application/json",
+            success: function(data){
+                alert('성공! 데이터 값:' + data.result2['id']+" " + data.result2['password']+ " " + data.result2['email'])
+            },
+            error: function(request, status, error){
+                alert('ajax 통신 실패')
+                alert(error);
+            }
+        });
+	}
+</script>
+</head>
+<body>
+	<a id="myid" href="javascript:fn_hello()">good</a>
+</body>
+</html>
