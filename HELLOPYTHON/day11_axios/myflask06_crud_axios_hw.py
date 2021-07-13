@@ -3,7 +3,7 @@ from day11_axios.mydao_emp_axios import DaoEmp
 
 app = Flask(__name__, static_url_path="", static_folder="static")
  
-@app.route('/emp_123')
+@app.route('/emp_axios_hw')
 def emp():
     de = DaoEmp()
     list = de.selectlist()

@@ -47,7 +47,8 @@ class DaoEmp:
     
     def update(self, e_id, e_name, tel, address):
         sql = f"""
-        UPDATE emp SET e_name = '{e_name}', tel = '{tel}', address = '{address}' WHERE e_id = {e_id}
+        UPDATE emp SET e_name = '{e_name}', tel = '{tel}', address = '{address}', up_user_id='1', up_update = DATE_FORMAT(NOW(), '%Y%m%d.%H%m%s') 
+         WHERE e_id = {e_id}
         """
         self.curs.execute(sql)
         self.conn.commit()
@@ -57,7 +58,7 @@ class DaoEmp:
     
     def delete(self, e_id):
         sql = f"""
-        DELETE FROM emp WHERE e_id = {e_id}
+        DELETE FROM emp WHERE e_id = '{e_id}'
         """
         self.curs.execute(sql)
         self.conn.commit()
