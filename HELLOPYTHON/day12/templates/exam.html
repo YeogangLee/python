@@ -1,0 +1,171 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+  	<meta charset="UTF-8">
+  	<script type="text/javascript" src="/js/jquery-3.6.0.js"></script>
+  	<script type="text/javascript" src="/js/axios.min.js"></script>
+    <title>Flask Exam</title>
+    <script type="text/javascript" defer>
+		function fn_set_exam(exam_id, e_id, kor, eng, math){
+			var input_exam_id = document.getElementById("exam_id");
+			var input_e_id	  = document.getElementById("e_id");
+			var input_kor	  = document.getElementById("kor");
+			var input_eng	  = document.getElementById("eng");
+			var input_math	  = document.getElementById("math");
+			
+			input_exam_id.value = exam_id;
+			input_e_id.value	= e_id;
+			input_kor.value		= kor;
+			input_eng.value		= eng;
+			input_math.value	= math;						
+		}
+		
+		function fn_insert_score(){
+			alert(1);
+			
+    		var e_id = document.getElementById("e_id").value;
+    		var kor = document.getElementById("kor").value;
+    		var eng = document.getElementById("eng").value;
+    		var math = document.getElementById("math").value;
+
+            axios({
+                method:"POST",
+                url: 'exam_insert.axios',
+                data:{
+                	'e_id': e_id
+                	, 'kor': kor
+                	, 'eng': eng
+                	, 'math': math
+                }
+            }).then((res)=>{
+            	if(res.data.result == "success") {
+            		location.reload();
+            	}else {
+            		alert("성적 데이터 추가 도중 문제가 생겼습니다.");
+            	}
+                console.log(res);
+                console.log(res.data.result); //success
+            }).catch(error=>{
+                console.log(error);
+                throw new Error(error);
+            });
+    	}
+    	
+    	function fn_update_score(){
+    		alert(2);
+			
+    		var exam_id = document.getElementById("exam_id").value;
+    		var e_id = document.getElementById("e_id").value;
+    		var kor = document.getElementById("kor").value;
+    		var eng = document.getElementById("eng").value;
+    		var math = document.getElementById("math").value;
+
+            axios({
+                method:"POST",
+                url: 'exam_update.axios',
+                data:{
+                	'exam_id': exam_id
+                	,'e_id': e_id
+                	, 'kor': kor
+                	, 'eng': eng
+                	, 'math': math
+                }
+            }).then((res)=>{
+            	if(res.data.result == "success") {
+            		location.reload();
+            	}else {
+            		alert("성적 데이터 수정 도중 문제가 생겼습니다.");
+            	}
+                console.log(res);
+                console.log(res.data.result); //success
+            }).catch(error=>{
+                console.log(error);
+                throw new Error(error);
+            });
+    	}
+    	
+		function fn_delete_score(){
+			alert(3);
+			
+			var flag = confirm("한 번 삭제된 성적 데이터는 복구되지 않습니다. 그래도 진행하시겠습니까?");
+			
+			if(!flag) {
+				return;
+			}
+			
+			var exam_id = document.getElementById("exam_id").value;
+
+            axios({
+                method:"POST",
+                url: 'exam_delete.axios',
+                data:{ 'exam_id': exam_id }
+            
+            }).then((res)=>{
+            	if(res.data.result == "success") {
+            		location.reload();
+            	}else {
+            		alert("성적 데이터 삭제 도중 문제가 생겼습니다.");
+            	}
+                console.log(res);
+                console.log(res.data.result); //success
+            }).catch(error=>{
+                console.log(error);
+                throw new Error(error);
+            });
+    	}
+    </script>
+  </head>
+  <body>
+<!--   	{{score_list}} -->
+  	<table border="1" style="border-collapse: collapse; float: left; margin-right: 20px;">
+  		<caption>시험</caption>
+  		<tr>
+  			<td>시험회차</td>
+  			<td>학번</td>
+  			<td>국어</td>
+  			<td>영어</td>
+  			<td>수학</td>
+  		</tr>
+  		{% for s in score_list %}
+  		<tr>
+  			<td><a href="javascript:fn_set_exam('{{s.exam_id}}','{{s.e_id}}','{{s.kor}}','{{s.eng}}','{{s.math}}')">{{s.exam_id}}</a></td>
+  			<td>{{s.e_id}}</td>
+  			<td>{{s.kor}}</td>
+  			<td>{{s.eng}}</td>
+  			<td>{{s.math}}</td>
+  		</tr>
+  		{% endfor %}
+  	</table>
+  	<br>
+  	<table border="1" style="border-collapse: collapse;">
+  		<tr>
+  			<td>시험회차</td>
+  			<td><input type="text" id="exam_id" readonly></td>
+  		</tr>
+  		<tr>
+  			<td>학번</td>
+  			<td><input type="text" id="e_id"></td>
+  		</tr>
+  		<tr>
+  			<td>국어</td>
+  			<td><input type="text" id="kor"></td>
+  		</tr>
+  		<tr>
+  			<td>영어</td>
+  			<td><input type="text" id="eng"></td>
+  		</tr>
+  		<tr>
+  			<td>수학</td>
+  			<td><input type="text" id="math"></td>
+  		</tr>
+  		<tr>
+  			<td></td>
+  			<td>
+  				<button type="button" onclick="fn_insert_score()">추가</button>
+  				<button type="button" onclick="fn_update_score()">수정</button>
+  				<button type="button" onclick="fn_delete_score()">삭제</button>
+  			</td>
+  		</tr>
+  	</table>
+  </body>
+</html>
