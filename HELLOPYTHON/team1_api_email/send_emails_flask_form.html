@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>이메일 발송 API</title>
+	<style>
+		table, tr, td {
+			border: 1px black solid;
+			border-collapse: collapse;
+		}
+		table {
+			margin: 10px 0;		
+		}
+		td {
+			padding: 10px;		
+		}
+		td > input {
+			width: 300px;
+		}
+		textarea {
+			width: 300px;
+		}		
+	</style>
+</head>
+<body>
+	<h3>&lt;이메일 작성하기&gt;</h3>
+	<form action="http://127.0.0.1:5000/send_email" method="post">
+		<table>
+			<tr>
+				<td>받는 사람</td>
+				<td><input type="email" name="email" placeholder="받는 사람의 이메일을 입력하세요." /></td> 
+			</tr>
+			<tr>
+				<td>이메일 제목</td>
+				<td><input type="text" name="title"/></td> 
+			</tr>
+			<tr>
+				<td>이메일 내용</td>
+<!-- 				<td><textarea rows="24" name="text" ></textarea></td>  -->
+				<td><input type="text" name="text" style="height: 370px;"/></td> 
+			</tr>
+		</table>
+		<input type="submit" value="메일 보내기" style="margin-left: 340px;"/>					
+	</form>
+</body>
+</html>
