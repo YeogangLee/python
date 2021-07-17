@@ -21,11 +21,38 @@ arr2D = [
 pb2D = []
 flag_wb = [True]
 flag_ing = [True]
+omok_size = [10]
 
 app = Ursina()
 # camera.orthographic = True
 
 camera.z = -50
+
+def myreset():
+    print("myreset")
+    btn.visible = False
+    btn_v.visible = False
+    btn_v.enabled = False
+    
+    flag_wb[0] = True
+    flag_ing[0] = True
+
+    # 배열에 들어가면 레퍼런스값이 된다, (일반 값이 아니라) 그래서 일일이 찍어준다.
+    for i in range(omok_size[0]) :
+        for j in range(omok_size[0]) :
+            arr2D[i][j] = 0
+    myrender()
+    
+
+def myclose():
+    print("myclose")
+    btn_v.visible = False
+    btn_v.enabled = False
+
+    
+btn = Button(text='RESET', origin=(-4,-5.5), scale=(0.11, 0.07, 1), background=True, on_click=myreset)
+btn_v = Button(text='**승리', origin=(0,0), scale=(0.11, 0.07, 1), background=True, enabled=False, on_click=myclose, visible=False)
+btn_v.z = -25
 
 def myrender():
     for i in range(10) :
@@ -175,6 +202,8 @@ def getDR(i, j, stone):
         return cnt
                 
 def myclick(i,j):
+    if not flag_ing[0] :
+        return
     
     if arr2D[i][j] > 0 :
         return
@@ -211,11 +240,20 @@ def myclick(i,j):
     
     if D1 == 5 or D2 == 5 or D3 == 5 or D4 == 5 :
         if flag_wb[0] :
-            b = Button('흰돌 승리', color=color.azure, scale=.14, text_origin=(0,0))
-            b.z = 1 
+            # b = Button('흰돌 승리', color=color.azure, scale=.14, text_origin=(0,0))
+            # b.z = 1
+            btn_v.text = '흰돌 승리'
+            btn_v.visible = True
+            btn_v.z = 5
+            btn_v.enabled = True
+            
         else :
-            b = Button('흑돌 승리', color=color.azure, scale=.14, text_origin=(0,0))
-            b.z = 1
+            # b = Button('흑돌 승리', color=color.azure, scale=.14, text_origin=(0,0))
+            # b.z = 1
+            btn_v.text = '흑돌 승리'
+            btn_v.visible = True
+            btn_v.z = 5
+            btn_v.enabled = True
         
         flag_ing[0] = not flag_ing[0]
 
